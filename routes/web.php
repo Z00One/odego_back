@@ -9,5 +9,9 @@ Route::get('/', [GetAttendance::class, 'isAttend']); // GetAttendance 컨트롤�
 
 // 유저의 위치정보와 DB의 강의실 위치의 대조 미들웨어 만들어야 함
 Route::post('/', function () {
-    return response()->json($data = '출석 가능', 200);
+    return response()->json($data = 'ok', 200);
+});
+
+Route::put('/', function () {
+    return response()->json($data = '출석 완료', 200);
 });

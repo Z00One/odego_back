@@ -4,21 +4,43 @@ namespace App\Http\Controllers\Attendance;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\DB; // DB 클래스 가져오기
+use app\Models\Attendence;
 use Illuminate\Http\Request;
 
 class GetAttendance extends Controller
 {
-    // DB 조회 결과값, view return
+    private $userId;
+    private $userLocation;
+    private $classId; // 반
+    private $classRoomId; // 강의실 위도 경도
+    private $attendance; // 출석 여부
+
+    // 최초 접속
     public function isAttend() // 출석 여부 확인
     {
-        $userId = 2201303; // test data
+        // $this->userId = $userId; // Google Oauth response에 해당되는 값 
+        $userId = 2201303;
 
-        // attendence 테이블, student_id컬럼에서 $userId인 레코드 조회, 컬렉션 객체의 반환 여부에 따라 선택
+        // $Att = new Attendence($userId);
+        // $this->classId = $Att->getClassid();
+        // $this->classRoomId = $Att->getClassRoomId();
+        // $this->attendance = $Att->getAttendance();
         $attendance = DB::table('attendance')->where('student_id', $userId)->get() ? '출석 안한 상태' : '출석 한 상태';
 
-        // classroom 테이블, building_id 이 유저의 class_id인 레코드 조회
-        // classroom_id (강의실 장소 - 인제니움관 402호) -> 데이터 전달
+        // 출석 여부를 attendance의 값으로 처리하여 렌더링 할 수 있도록
         return view('main.main', ['isAttend' => $attendance]);
+    }
+
+    // 출석 요청
+    public function attend($userLocation)
+    {
+        // 받아온 유저의 위도 경도 값
+        $this->userLocation = $userLocation;
+
+        // Attendance 모델에서 classid, classRoomId 값 가져오기
+
+        // 강의실 위치, 사용자 위치 비교하기
+
     }
 
     // request body의 사용자 위치 정보 (위도, 경도) 받아서
