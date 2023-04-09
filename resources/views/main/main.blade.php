@@ -21,7 +21,8 @@
     window.onload = async () => {
       userLocation = await getLocation(); // 자신의 위치 가져오기       
       // 출석 가능 여부 - ODEGO 서버로 요청, csrf 토큰 필요함
-      canAttendent = await attendence("POST", userLocation, csrftoken);
+      const response = await attendence("POST", userLocation, csrftoken);
+      canAttendent = response === 'ok' ? '출석 가능한 위치' : '출석 가능한 위치 아님';
       document.querySelector('.attendent').textContent = canAttendent;
     }
         
@@ -38,10 +39,13 @@
 
 <body>
 
-  <!-- 출석(1. 기존에 이미 출석, 2. 현재 출석 요청), 출석 가능, 출석 불가능 -->
-  <h1 class="my_attendence">{{ $isAttend }}
-    <h1>
-      <button class="attendent">...</button>
+  <!-- 기존에 출석 했는지 안했는지 -->
+  <h1 class="my_attendence">출석 여부 데이터 : {{ $isAttendent }}<h1>
+  <h1 class="my_attendence">강의실 정보 : {{ $classRoomId }}<h1>
+  <h1 class="my_attendence">반 정보 : {{ $classId }}<h1>
+  
+  <!-- 유저 위치에서 접속 가능한지 확인 -->
+  <button class="attendent">출석 가능?</button>
 
 
 </body>

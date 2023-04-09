@@ -3,17 +3,13 @@
 namespace App\Http\Controllers\Attendance;
 
 use App\Http\Controllers\Controller;
-use Illuminate\Support\Facades\DB; // DB 클래스 가져오기
-use app\Models\Attendence;
+use App\Models\Attendance;
 use Illuminate\Http\Request;
 
 class GetAttendance extends Controller
 {
     private $userId;
     private $userLocation;
-    private $classId; // 반
-    private $classRoomId; // 강의실 위도 경도
-    private $attendance; // 출석 여부
 
     // 최초 접속
     public function isAttend() // 출석 여부 확인
@@ -21,14 +17,14 @@ class GetAttendance extends Controller
         // $this->userId = $userId; // Google Oauth response에 해당되는 값 
         $userId = 2201303;
 
-        // $Att = new Attendence($userId);
-        // $this->classId = $Att->getClassid();
-        // $this->classRoomId = $Att->getClassRoomId();
-        // $this->attendance = $Att->getAttendance();
-        $attendance = DB::table('attendance')->where('student_id', $userId)->get() ? '출석 안한 상태' : '출석 한 상태';
+        $Att = new Attendance($userId);
+        $attendance = $Att->getAttendance();
+        $classId = $Att->getClassid() ? '2WDJ' : '아직 정보가 없습니다';
+        $classRoomId = $Att->getClassRoomId() ? '인제니움관 402호' : '아직 정보가 없습니다';
 
         // 출석 여부를 attendance의 값으로 처리하여 렌더링 할 수 있도록
-        return view('main.main', ['isAttend' => $attendance]);
+        return view('main.main', ['isAttendent' => $attendance, 'classRoomId' => $classRoomId, 'classId' => $classId]);
+
     }
 
     // 출석 요청
