@@ -17,10 +17,10 @@ labels:
   'test':
     include:
       - '\btest\b'
-  'feature':
+  'feat':
     include:
       - '\bfeat\b'
-  'documentation':
+  'docs':
     include:
       - '\bdocs\b'
   'refactor':
