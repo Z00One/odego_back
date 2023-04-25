@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\View\View;
 
+// 사용자 프로필 정보에 관련된 로직을 처리하는 컨트롤러 클래스입니다.
 class ProfileController extends Controller
 {
     /**
