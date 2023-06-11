@@ -10,7 +10,7 @@ class Professor extends Authenticatable
 {
     use HasFactory, Notifiable;
 
-    protected $table = 'professor';  // 테이블명 지정
+    protected $table = 'professors';  // 테이블명 지정
 
     // TODO: 이 부분은 나중에 수정해야 함
     protected $fillable = [
